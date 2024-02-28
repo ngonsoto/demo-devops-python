@@ -57,7 +57,7 @@ steps:
 
 - task: PublishTestResults@2
   inputs:
-    testResultsFiles: '**/pylint-report.xml'
+    testResultsFiles: '**/flake8-report.xml'
     testRunTitle: 'Static Code Analysis'
   condition: always()
   displayName: 'Publish static code analysis'
