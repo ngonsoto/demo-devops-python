@@ -50,13 +50,13 @@ steps:
   continueOnError: False
 
 - script: |
-    pip install flake8 flake8_junit
-    flake8 --format=junit-xml --output-file=flake8-report.xml . --exit-zero
+    pip install pylint
+    pylint --output-format=xml . > pylint-report.xml
   displayName: 'Run Static Code Analysis'
 
 - task: PublishTestResults@2
   inputs:
-    testResultsFiles: '**/flake8-report.xml'
+    testResultsFiles: '**/pylint-report.xml'
     testRunTitle: 'Static Code Analysis'
   condition: always()
   displayName: 'Publish static code analysis'
