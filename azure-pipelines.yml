@@ -50,8 +50,8 @@ steps:
   continueOnError: False
 
 - script: |
-    pip install flake8
-    flake8 . --verbose --output-file=flake8-report.xml --exit-zero
+    pip install flake8 flake8_junit
+    flake8 --format=junit-xml --output-file=flake8-report.xml . --exit-zero
   displayName: 'Run Static Code Analysis'
 
 - task: PublishTestResults@2
@@ -59,6 +59,7 @@ steps:
     testResultsFiles: '**/flake8-report.xml'
     testRunTitle: 'Static Code Analysis'
   condition: always()
+  displayName: 'Publish static code analysis
 
 - task: PublishTestResults@2
   inputs:
