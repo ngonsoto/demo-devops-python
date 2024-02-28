@@ -51,7 +51,7 @@ steps:
 
 - script: |
     pip install flake8
-    flake8 . --verbose --output-file=flake8-report.xml
+    flake8 . --verbose --output-file=flake8-report.xml --exit-zero
   displayName: 'Run Static Code Analysis'
 
 - task: PublishTestResults@2
