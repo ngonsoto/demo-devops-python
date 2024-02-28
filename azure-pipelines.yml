@@ -39,21 +39,17 @@ steps:
 - script: |
     python -m pip install --upgrade pip setuptools wheel
     pip install -r requirements.txt
+  displayName: 'Install requirements'
+
+- script: |
     pip install unittest-xml-reporting pytest pytest-azurepipelines pytest-cov
-  displayName: 'Install requirements and testing tools'
+  displayName: 'Install testing tools'
 
 - script: |
     pip install flake8
     flake8 .
   continueOnError: true
-  displayName: 'Run Static Code Analysis'
-
-- task: PublishTestResults@2
-  inputs:
-    testResultsFiles: '**/flake8-report.xml'
-    testRunTitle: 'Static Code Analysis'
-  condition: always()
-  displayName: 'Publish static code analysis'
+  displayName: 'Run static code analysis'
 
 - script: |
     pushd '$(projectRoot)'
