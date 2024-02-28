@@ -44,10 +44,16 @@ steps:
 
 - script: |
     pushd '$(projectRoot)'
-    python -m coverage run ./manage.py test
+    python -m coverage run ./manage.py test --testrunner xmlrunner.extra.djangotestrunner.XMLTestRunner --no-input
     python -m coverage xml
   displayName: 'Run tests with coverage'
   continueOnError: False
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFiles: "**/TEST-*.xml"
+    testRunTitle: 'Python $(PYTHON_VERSION)'
+  condition: succeededOrFailed()
 
 - task: PublishCodeCoverageResults@1
   displayName: ‘Publish Cobertura Coverage Report’
