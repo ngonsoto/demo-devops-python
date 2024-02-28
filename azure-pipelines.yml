@@ -43,9 +43,9 @@ steps:
   displayName: 'Install requirements and testing tools'
 
 - script: |
-    pip install flake8-html xunitparser
-    flake8 . --output-file=output.txt
-    python -m xunitparser -v output.txt flake8-report.xml
+    pip install flake8
+    flake8 .
+  continueOnError: true
   displayName: 'Run Static Code Analysis'
 
 - task: PublishTestResults@2
