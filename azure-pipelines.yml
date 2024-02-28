@@ -59,7 +59,7 @@ steps:
     testResultsFiles: '**/flake8-report.xml'
     testRunTitle: 'Static Code Analysis'
   condition: always()
-  displayName: 'Publish static code analysis
+  displayName: 'Publish static code analysis'
 
 - task: PublishTestResults@2
   inputs:
