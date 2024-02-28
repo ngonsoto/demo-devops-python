@@ -49,7 +49,7 @@ steps:
 
 - bash: |
     pip install pytest pytest-azurepipelines pytest-cov
-    python -m coverage xml run ./manage.py test
+    python -m coverage run ./manage.py test
   displayName: 'Pytest Unit Test with Coverage'
   continueOnError: False
 
