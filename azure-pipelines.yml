@@ -51,7 +51,7 @@ steps:
 
 - script: |
     pip install flake8
-    flake8 <path_to_your_django_project>
+    flake8 .
   displayName: 'Run Static Code Analysis'
 
 - task: PublishTestResults@2
