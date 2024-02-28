@@ -50,8 +50,9 @@ steps:
   continueOnError: False
 
 - script: |
-    pip install pylint
-    pylint --output-format=xml . > pylint-report.xml
+    pip install flake8-html xunitparser
+    flake8 --format=html --htmldir=flake8-report .
+    python -m xunitparser -v flake8-report/index.html flake8-report/flake8-report.xml
   displayName: 'Run Static Code Analysis'
 
 - task: PublishTestResults@2
