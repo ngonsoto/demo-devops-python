@@ -1,0 +1,71 @@
+# Python Django
+# Test a Django project on multiple versions of Python.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/python
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+strategy:
+  matrix:
+    Python311:
+      PYTHON_VERSION: '3.11'
+  maxParallel: 3
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '$(PYTHON_VERSION)'
+    architecture: 'x64'
+
+- task: PythonScript@0
+  displayName: 'Export project path'
+  inputs:
+    scriptSource: 'inline'
+    script: |
+      """Search all subdirectories for `manage.py`."""
+      from glob import iglob
+      from os import path
+      # Python >= 3.5
+      manage_py = next(iglob(path.join('**', 'manage.py'), recursive=True), None)
+      if not manage_py:
+          raise SystemExit('Could not find a Django project')
+      project_location = path.dirname(path.abspath(manage_py))
+      print('Found Django project in', project_location)
+      print('##vso[task.setvariable variable=projectRoot]{}'.format(project_location))
+
+- script: |
+    python -m pip install --upgrade pip setuptools wheel
+    pip install -r requirements.txt
+  displayName: 'Install requirements'
+
+- script: |
+    pip install unittest-xml-reporting pytest pytest-azurepipelines pytest-cov
+  displayName: 'Install testing tools'
+
+- script: |
+    pip install flake8
+    flake8 .
+  continueOnError: true
+  displayName: 'Run static code analysis'
+
+- script: |
+    pushd '$(projectRoot)'
+    python -m coverage run ./manage.py test --testrunner xmlrunner.extra.djangotestrunner.XMLTestRunner --no-input
+    python -m coverage xml
+  displayName: 'Run tests with coverage'
+  continueOnError: False
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFiles: "**/TEST-*.xml"
+    testRunTitle: 'Python $(PYTHON_VERSION)'
+  condition: succeededOrFailed()
+
+- task: PublishCodeCoverageResults@1
+  displayName: Publish Cobertura coverage report
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: "**/coverage.xml"
