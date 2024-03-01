@@ -76,3 +76,9 @@ steps:
     repository: 'djagodemoapp'
     command: 'build'
     Dockerfile: '**/Dockerfile'
+    
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish build artifacts'
+  inputs:
+    pathtoPublish: '$(Build.SourcesDirectory)'  # Replace with the path to your Docker build output directory
+    artifactName: 'docker-build'
