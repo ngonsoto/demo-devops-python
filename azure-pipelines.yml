@@ -69,16 +69,10 @@ steps:
   inputs:
     codeCoverageTool: Cobertura
     summaryFileLocation: "**/coverage.xml"
-
+    
 - task: Docker@2
   inputs:
     containerRegistry: 'devsudjangoapp'
-    repository: 'djagodemoapp'
-    command: 'build'
+    repository: 'djangodemoapp'
+    command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
-    
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish build artifacts'
-  inputs:
-    pathtoPublish: '$(Build.SourcesDirectory)'  # Replace with the path to your Docker build output directory
-    artifactName: 'docker-build'
