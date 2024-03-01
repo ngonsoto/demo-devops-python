@@ -69,3 +69,10 @@ steps:
   inputs:
     codeCoverageTool: Cobertura
     summaryFileLocation: "**/coverage.xml"
+
+- task: Docker@2
+  inputs:
+    containerRegistry: 'devsudjangoapp'
+    repository: 'djagodemoapp'
+    command: 'build'
+    Dockerfile: '**/Dockerfile'
