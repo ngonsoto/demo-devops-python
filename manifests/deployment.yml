@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: devsudjangoapp 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devsudjangoapp
+  template:
+    metadata:
+      labels:
+        app: devsudjangoapp 
+    spec:
+      containers:
+        - name: devsudjangoapp 
+          image: devsudjangoapp.azurecr.io/devsudjangoapp
+          ports:
+          - containerPort: 8000
