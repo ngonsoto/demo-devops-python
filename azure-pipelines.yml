@@ -71,25 +71,9 @@ steps:
     summaryFileLocation: "**/coverage.xml"
 
 - task: Docker@2
-  displayName: Build docker image
+  displayName: Build and push docker image
   inputs:
     containerRegistry: 'devsudjangoapp'
     repository: 'djangodemoapp'
-    command: 'build'
+    command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
-
-- task: Docker@0
-  displayName: Save docker image
-  inputs:
-    containerregistrytype: 'Azure Container Registry'
-    azureSubscription: 'Azure subscription 1(45589f90-2ac0-4efe-b1bf-225715eaea97)'
-    azureContainerRegistry: '{"loginServer":"devsudjangoapp.azurecr.io", "id" : "/subscriptions/45589f90-2ac0-4efe-b1bf-225715eaea97/resourceGroups/devsu-django-app/providers/Microsoft.ContainerRegistry/registries/djangodemoapp"}'
-    action: 'Run a Docker command'
-    customCommand: 'save djangodemoapp:$(Build.BuildId) -o $(Build.ArtifactStagingDirectory)/djangodemoapp.tar'
-
-- task: PublishPipelineArtifact@1
-  displayName: Publish container as artifact
-  inputs:
-    targetPath: '$(Build.ArtifactStagingDirectory)/djangodemoapp.tar'
-    artifact: 'django-demo-app-container'
-    publishLocation: 'pipeline'
