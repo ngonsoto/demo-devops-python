@@ -16,3 +16,7 @@ EXPOSE 8000
 
 # run the application
 CMD ["bash", "entrypoint.sh"]
+
+# verify application health
+HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
+    CMD curl --fail http://localhost:8000/api/ || exit 1
