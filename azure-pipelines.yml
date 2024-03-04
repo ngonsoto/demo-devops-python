@@ -76,3 +76,6 @@ steps:
     repository: 'djangodemoapp'
     command: 'buildAndPush'
     Dockerfile: '**/dockerfile'
+    tags: |
+      latest
+      $(Build.BuildId)
