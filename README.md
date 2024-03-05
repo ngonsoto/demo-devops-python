@@ -276,6 +276,9 @@ This is part of the DevOps Technical Test.
 ### General information
 This repo is connected to an Azure DevOps pipeline. Any updates to the main branch triggers the pipeline to test, build and deploy the image to a Kubernetes cluster using AKS offering from Microsoft Azure.
 
+The diagram of the application is detailed below:
+![Django demo app diagram](https://github.com/ngonsoto/demo-devops-python/blob/main/images/django-demo-app-diagram.png)
+
 ### Application containerization
 The containerization process is detailed on the `dockerfile` file on the root of the directory.
 
