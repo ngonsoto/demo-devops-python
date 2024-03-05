@@ -12,7 +12,7 @@ COPY . /home/docker
 WORKDIR /home/docker
 
 # Create a non-root user
-RUN addgroup --system djangogrp && adduser --system --ingroup djangousr djangogrp
+RUN addgroup --system djangogrp && adduser --system --ingroup djangogrp djangousr
 
 # Set ownership and permissions
 RUN chown -R djangousr:djangogrp /home/docker
