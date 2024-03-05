@@ -11,6 +11,15 @@ RUN pip install -r requirements.txt
 COPY . /home/docker
 WORKDIR /home/docker
 
+# Create a non-root user
+RUN addgroup --system djangogrp && adduser --system --ingroup djangousr djangogrp
+
+# Set ownership and permissions
+RUN chown -R djangousr:djangogrp /home/docker
+
+# Switch to non-root user
+USER djangousr
+
 # open port 8000
 EXPOSE 8000
 
