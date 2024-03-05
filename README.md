@@ -299,6 +299,10 @@ The testing phase covers the following:
 
 To run the pipeline, ensure that the Azure DevOps (ADO) project has access to this repo, and either push a new version to the `main` branch or run the pipeline manually from ADO.
 
+![Unit testing result](https://github.com/ngonsoto/demo-devops-python/blob/main/images/testingResult.png)
+
+![Code coverage result](https://github.com/ngonsoto/demo-devops-python/blob/main/images/codeCoverageResult.png)
+
 ### CD Pipeline
 The CD Pipeline is triggered everytime a new image is pushed onto the Azure Container Registry. The image is then pushed to an Azure Kubernetes Service using the manifests on the `k8s` folder of this repository. The pipeline automatically pushes the new version to a DEV environment and after that, manual approving is required to do the same onto a PRD environment.
 
@@ -322,6 +326,9 @@ The commands for the ingress method are detailed below:
     helm install nginx-ingress ingress-nginx/ingress-nginx
     kubectl apply -f k8s/service2.yaml
     kubectl apply -f k8s/ingress.yaml
+
+![Release pipeline result](https://github.com/ngonsoto/demo-devops-python/blob/main/images/releasePipeline.png)
+![Release pipeline tasks result](https://github.com/ngonsoto/demo-devops-python/blob/main/images/releasePipelineTasks.png)
 
 
 ### Access the application
