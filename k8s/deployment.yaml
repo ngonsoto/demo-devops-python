@@ -17,6 +17,10 @@ spec:
       containers:
       - name: djangodemoapp
         image: devsudjangoapp.azurecr.io/djangodemoapp:latest  # Replace with your Docker image name and tag
+        volumeMounts:
+          - name: volume
+            mountPath: /home/docker/sqlite
+            readOnly: false
         ports:
         - containerPort: 8000
         resources:
@@ -24,3 +28,7 @@ spec:
             cpu: 250m
           limits:
             cpu: 500m
+      volumes:
+        - name: volume
+          persistentVolumeClaim:
+            claimName: django-pvc
