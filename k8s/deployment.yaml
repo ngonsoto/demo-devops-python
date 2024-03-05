@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
       - name: djangodemoapp
-        image: devsudjangoapp.azurecr.io/djangodemoapp:latest  # Replace with your Docker image name and tag
+        image: devsudjangoapp.azurecr.io/djangodemoapp:latest
+        imagePullPolicy: Always
         volumeMounts:
           - name: volume
             mountPath: /home/docker/sqlite
